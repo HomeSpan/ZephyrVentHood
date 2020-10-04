@@ -5,6 +5,8 @@
 
 #include "extras/RFControl.h"
 
+#define RF433_PIN 22            // pin used for 433MHz transmitter
+
 // Zephyr Vent Hood
 
 // Frequency:   433 MHz
@@ -16,8 +18,8 @@
 // Cycle Gap:   4000 usec
 
 void transmitZephyr(uint32_t code);
-
 boolean resetLight=false;
+RFControl RF433{RF433_PIN};
 
 //////////////////////////////////
 
