@@ -95,7 +95,6 @@ struct DEV_ZephyrLight : Service::LightBulb {
     } else {
       
       LOG1("Zephyr Vent Hood Light Long Button Press: Power is already off!\n");      
-      resetLight=true;
     }
     
   } // button
@@ -175,7 +174,6 @@ struct DEV_ZephyrFan : Service::Fan {
     } else {
       
       LOG1("Zephyr Vent Hood Fan Long Button Press: Power is already off!\n");      
-      resetLight=true;
     }
 
   } // button
