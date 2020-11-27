@@ -20,7 +20,7 @@
 void transmitZephyr(uint32_t code);
 boolean resetLight=false;
 boolean resetFan=false;
-RFControl RF433{RF433_PIN};
+RFControl RF433(RF433_PIN);
 
 //////////////////////////////////
 
@@ -68,10 +68,10 @@ struct DEV_ZephyrLight : Service::LightBulb {
       
   } // update
 
-  void button(int pin, boolean isLong) override {
+  void button(int pin, int pressType) override {
 
-    if(!isLong){
-      LOG1("Zephyr Vent Hood Light Short Button Press: Brightness Change\n");
+    if(pressType==SpanButton::SINGLE){
+      LOG1("Zephyr Vent Hood Light SINGLE Button Press: Brightness Change\n");
       transmitZephyr(lightCode);
       
       state--;                      // decrement state
@@ -84,9 +84,13 @@ struct DEV_ZephyrLight : Service::LightBulb {
         power->setVal(true);
       }
     } else
+
+    if(pressType==SpanButton::DOUBLE){
+      LOG1("Zephyr Vent Hood Light DOUBLE Button Press: IGNORED\n");      
+    } else
     
     if(power->getVal()){
-      LOG1("Zephyr Vent Hood Light Long Button Press: Power Off\n");
+      LOG1("Zephyr Vent Hood Light LONG Button Press: Powering off Vent Hood\n");
       transmitZephyr(powerCode);
 
       state=0;
@@ -94,7 +98,7 @@ struct DEV_ZephyrLight : Service::LightBulb {
       resetFan=true;
     } else {
       
-      LOG1("Zephyr Vent Hood Light Long Button Press: Power is already off!\n");      
+      LOG1("Zephyr Vent Hood Light LONG Button Press: Power is already off!\n");      
     }
     
   } // button
@@ -157,23 +161,27 @@ struct DEV_ZephyrFan : Service::Fan {
     
   } // update
 
-  void button(int pin, boolean isLong) override {
+  void button(int pin, int pressType) override {
 
-    if(!isLong){
-      LOG1("Zephyr Vent Hood Fan Short Button Press: Speed Change\n");
+    if(pressType==SpanButton::SINGLE){
+      LOG1("Zephyr Vent Hood Fan SINGLE Button Press: Speed Change\n");
       transmitZephyr(fanCode);
       if(!power->getVal())
         power->setVal(true);
     } else
-    
+
+    if(pressType==SpanButton::DOUBLE){
+      LOG1("Zephyr Vent Hood Fan DOUBLE Button Press: IGNORED\n");      
+    } else
+        
     if(power->getVal()){
-      LOG1("Zephyr Vent Hood Fan Long Button Press: Power Off\n");
+      LOG1("Zephyr Vent Hood Fan LONG Button Press: Powering off Vent Hood\n");
       transmitZephyr(powerCode);
       power->setVal(false);      
       resetLight=true;
     } else {
       
-      LOG1("Zephyr Vent Hood Fan Long Button Press: Power is already off!\n");      
+      LOG1("Zephyr Vent Hood Fan LONG Button Press: Power is already off!\n");      
     }
 
   } // button
