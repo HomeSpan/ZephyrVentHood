@@ -13,7 +13,7 @@ void setup() {
   homeSpan.begin(Category::Fans,"Zephyr Vent Hood");
 
   new SpanAccessory();
-    new DEV_Identify("Vent Hood","HomeSpan","ZVH-1","RF-Control","1.0",0);
+    new DEV_Identify("Vent Hood","HomeSpan","ZVH-1","RF-Control","1.0.1",0);
     new Service::HAPProtocolInformation();
       new Characteristic::Version("1.1.0");
     (new DEV_ZephyrFan(0x51388,0x61398,18))->setPrimary();
