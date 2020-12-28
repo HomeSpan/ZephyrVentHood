@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Files to exclude from archives/releases
+images export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
