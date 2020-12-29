@@ -31,3 +31,28 @@ The sketch uses HomeSpan's `RFControl` library to output a digital version of a 
 
 ### Real-World Complications in the Idealized-World of HomeKit
 
+The Zephyr Vent Hood has both a fan and a light, which should in principle be easy to replicate as a single Accessory with one Fan Service (with 3 speeds) and one Light Bulb Service (with 3 levels of brightness).  Unfortunately, the Zephyr Hood controls are not as clean, and the the Fan and Light operations are somewhat linked together as follows:
+
+If both the fan and light are off:
+
+* a press of the power button turns on the fan to low speed; or
+* a press of the fan button turns on the fan to low speed; or
+* a press of the light button turns on the light to high brightness.
+
+Pressing the light button when the light is already on cycles the brightness from high → medium → low → off, and then back to high.  Pressing the fan button when the fan is already running cycles the speed from low → medium → high, and then back to low.  **There is *no* off setting when pressing the fan button**.  Instead, to turn the fan off, you need to press the power button.  But that also turns off the light, which leads to a linkage between the fan and light that is more complex than the idealized standalone Fan and Light Bulb Service in HomeKit.  For example, if the fan is off *and* the light is off, the fan comes on when you press the power button.  But if the light is already on and you press the power button, the light turns off, and nothing happens to the fan.
+
+A second complication is that the Zephyr only allows you to cycle through speeds and brightness levels.  There is no remote control command that directs the Zephyr to set the fan to a specific speed or the light to a specific brightness.
+
+Fortunately, a little bit of extra logic that takes advantage of Homespan's flexible service-oriented structure (service as in HomeKit Service, *not* as in client/servers), and some practical compromise, is all that is needed to solve for these complications.
+
+### Potential Solutions
+
+There are at least three ways to solve the very common problem of representing a multi-speed fan or dimmable light in HomeKit even when the device only permits cycing through different levels in a fixed order:
+
+1. Create logic that sends repeated commands to cycling through multiple fan speeds or multiple levels of brightness until the speed or brightness matches the value  set by the user Home App matches the speed.  The problems with this are -
+  1. If just one RF command is dropped or missed, the real-world device will get out of sync with what the code thinks the speed or brightness is.
+  1. The device will need to "flicker" through multiple levels as it cycles to the desired state.  For a light, this can be very annoying.  For a fan, changing the speed from medium to low by rapidly cyling first through high can be very annoying *and* can damage the motor (or at least shorten its life).
+1. Use HomeSpan's emulated pushbutton features to replicate the real-work functionality of the remote buttons.  A single press of a "Speed" tile in the Home App could cycle the fan speed.  A single press of a "Brightness" tile in the Home App could cycle the brightness.  The problem with this method is that although it works well if you operate the tiles in the Home App, it does not translate well with Siri.  Telling Siri to increase the brightness does not work, since Siri has no idea that the brightness tile you creates is really related to the brightness of the light.  Instead you would need to say "Siri, turn ON vent light brightness," which is quite clunky.  To get around this you could create a HomeKit scene or Siri Shortcut called "Decrease Vent Light Brightness" that would trigger the brightness tile, but this is also rather clunky (I tried this in practice, and it really is) since there is no equivalent "Increase Vent Light Brightness" button becuase the Zephy light only cycles high → medium → low → off, and then back to high.
+1. Don't bother implementing speed and brightness controls from within HomeKit.
+
+### 
