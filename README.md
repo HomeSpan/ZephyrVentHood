@@ -21,7 +21,7 @@ As shown, it's a simple 4-button remote with buttons for *power*, the *fan*, the
 
 ### The RF Signals
 
-Opening the remote revealed it was using a standard 433.92 MHz oscillator (it was printed on the oscillator itself).  Using an Arduino Mega (or an ESP32), the Arduino Serial Plotter (a terrific feature of the Arduino IDE!), and a 434 MHz receiver (such as this [RF Link Transmitter](https://www.sparkfun.com/products/10534) from SparkFun) allows one to easily reverse-engineer the RF signals.  
+Opening the remote revealed it was using a standard 433.92 MHz oscillator (it was printed on the oscillator itself).  Using an Arduino Mega (or an ESP32), the Arduino Serial Plotter (a terrific feature of the Arduino IDE!), and a 434 MHz receiver (such as this [RF Link Receiver](https://www.sparkfun.com/products/10532) from SparkFun) allows one to easily reverse-engineer the RF signals.  
 
 Each button on the remote produces 8 repeats of a fixed pattern of 20 high/low pulses. Individual high/low pulses are 850𝛍s in duration, and there is a delay of 4ms between repeats of the pattern.  There are two types of pulses:  one is 230𝛍s high followed by 620𝛍s low, which can be arbitrarily assigned to represent a 0-bit; the other is 620𝛍s high followed by 230𝛍s low, which would represent a 1-bit.  Each button can therefore be represented by a 5 hex-digit code, such as 0x51388.
 
