@@ -4,7 +4,7 @@ HomeKit control of a ceiling-mounted <a href="https://zephyronline.com/product/l
 
 Hardware used for this project:
 
-* An ESP32 board, such as the [Adafruit HUZZAH32 – ESP32 Feather Board](https://www.adafruit.com/product/3405?gclid=EAIaIQobChMIh9-Rk4nx7QIVEvDACh0IRwiGEAYYBiABEgJSMPD_BwE)
+* An ESP32 board, such as the [Adafruit HUZZAH32 – ESP32 Feather Board](https://www.adafruit.com/product/3405)
 * A simple 434 MHz RF Transmitter, such as this [RF Link Transmitter](https://www.sparkfun.com/products/10534) from SparkFun
 * Two large pushbuttons (normally-open) to control the Zephyr fan and Zephyr light
 * One small pushbutton (normally-open) to serve as the HomeSpan Control Button (optional)
