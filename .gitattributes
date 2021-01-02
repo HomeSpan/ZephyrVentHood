@@ -2,6 +2,7 @@
 * text=auto
 
 # Files to exclude from archives/releases
-images export-ignore
+docs export-ignore
+documents export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
