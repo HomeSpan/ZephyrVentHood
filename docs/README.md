@@ -1,6 +1,6 @@
-# ZephyrVentHood
+# ZephyrVentHood - A HomeSpan Project
  
-HomeKit control of a ceiling-mounted <a href="https://zephyronline.com/product/lux-island-range-hood/">Lux Island</a> kitchen vent hood fan by Zephyr.  Runs on an ESP32 device as an Arduino sketch using the Arduino [HomeSpan Library](https://github.com/HomeSpan/HomeSpan).
+HomeKit control of a ceiling-mounted <a href="https://zephyronline.com/product/lux-island-range-hood/">Lux Island</a> kitchen vent hood fan by Zephyr.  Built using the [HomeSpan](https://github.com/HomeSpan/HomeSpan) HomeKit Library, ZephyrVentHood is designed to run on an ESP32 device as an Arduino sketch. 
 
 Hardware used for this project:
 
