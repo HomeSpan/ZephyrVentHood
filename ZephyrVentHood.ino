@@ -10,7 +10,8 @@ void setup() {
 
   Serial.begin(115200);
 
-  homeSpan.setLogLevel(1);
+  homeSpan.setStatusPin(13);
+  homeSpan.setControlPin(21);
   homeSpan.enableOTA();
   homeSpan.setSketchVersion(SKETCH_VERSION);
   
