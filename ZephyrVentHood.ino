@@ -4,7 +4,7 @@
 #include "DEV_Identify.h"
 #include "DEV_Zephyr.h"
 
-#define SKETCH_VERSION  "2.0"
+#define SKETCH_VERSION  "2.1"
 
 void setup() {
 
@@ -13,7 +13,9 @@ void setup() {
   homeSpan.setStatusPin(13);
   homeSpan.setControlPin(21);
   homeSpan.enableOTA();
+  homeSpan.setQRID("ZVH1");
   homeSpan.setSketchVersion(SKETCH_VERSION);
+  homeSpan.setMaxConnections(20); 
   
   homeSpan.begin(Category::Fans,"Zephyr Vent Hood");
 
