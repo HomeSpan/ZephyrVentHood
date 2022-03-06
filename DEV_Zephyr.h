@@ -46,6 +46,8 @@ struct DEV_ZephyrLight : Service::LightBulb {
     Serial.print(powerCode,HEX);
     Serial.print("\n");
 
+    WEBLOG("Configuring Zephyr Vent Hood Light 433MHz Transmitter with light code = 0x%05X and power code = 0x%05X",lightCode,powerCode);
+
     new SpanButton(lightPin);
   }
 
@@ -53,12 +55,14 @@ struct DEV_ZephyrLight : Service::LightBulb {
 
     if(!power->getVal() && power->getNewVal()){      // only transmit code to turn on light if power is off
       LOG1("Zephyr Vent Hood Light: Power On\n");
+      WEBLOG("HomeKit Command: Turn on Light");
       transmitZephyr(lightCode);
       state=3;                                       // light always turns on to brightest setting
     } else 
     
     if(power->getVal() && !power->getNewVal()){      // only transmit code to turn off light if power is on
       LOG1("Zephyr Vent Hood Light: Power Off\n");
+      WEBLOG("HomeKit Command: Turn off Light");
       transmitZephyr(powerCode);
       state=0;
       resetFan=true;                                 // if fan is on, we need to tell HomeKit it is now off
@@ -72,6 +76,7 @@ struct DEV_ZephyrLight : Service::LightBulb {
 
     if(pressType==SpanButton::SINGLE){
       LOG1("Zephyr Vent Hood Light SINGLE Button Press: Brightness Change\n");
+      WEBLOG("Light Button: Single Press");
       transmitZephyr(lightCode);
       
       state--;                      // decrement state
@@ -87,10 +92,12 @@ struct DEV_ZephyrLight : Service::LightBulb {
 
     if(pressType==SpanButton::DOUBLE){
       LOG1("Zephyr Vent Hood Light DOUBLE Button Press: IGNORED\n");      
+      WEBLOG("Light Button: Double Press");
     } else
     
     if(power->getVal()){
       LOG1("Zephyr Vent Hood Light LONG Button Press: Powering off Vent Hood\n");
+      WEBLOG("Light Button: Long Press");
       transmitZephyr(powerCode);
 
       state=0;
@@ -141,6 +148,8 @@ struct DEV_ZephyrFan : Service::Fan {
     Serial.print(powerCode,HEX);
     Serial.print("\n");
 
+    WEBLOG("Configuring Zephyr Vent Hood Fan 433MHz Transmitter with light code = 0x%05X and power code = 0x%05X",fanCode,powerCode);
+
     new SpanButton(fanPin);
   }
 
@@ -148,11 +157,13 @@ struct DEV_ZephyrFan : Service::Fan {
 
     if(!power->getVal() && power->getNewVal()){       // only transmit code to turn on fan if power is off
       LOG1("Zephyr Vent Hood Fan: Power On\n");
+      WEBLOG("HomeKit Command: Turn on Fan");
       transmitZephyr(fanCode);
     } else 
     
     if(power->getVal() && !power->getNewVal()){       // only transmit code to turn off fan if power is on
       LOG1("Zephyr Vent Hood Fan: Power Off\n");
+      WEBLOG("HomeKit Command: Turn off Fan");
       transmitZephyr(powerCode);
       resetLight=true;
     }
@@ -165,6 +176,7 @@ struct DEV_ZephyrFan : Service::Fan {
 
     if(pressType==SpanButton::SINGLE){
       LOG1("Zephyr Vent Hood Fan SINGLE Button Press: Speed Change\n");
+      WEBLOG("Fan Button: Single Press");
       transmitZephyr(fanCode);
       if(!power->getVal())
         power->setVal(true);
@@ -172,10 +184,12 @@ struct DEV_ZephyrFan : Service::Fan {
 
     if(pressType==SpanButton::DOUBLE){
       LOG1("Zephyr Vent Hood Fan DOUBLE Button Press: IGNORED\n");      
+      WEBLOG("Fan Button: Double Press");
     } else
         
     if(power->getVal()){
       LOG1("Zephyr Vent Hood Fan LONG Button Press: Powering off Vent Hood\n");
+      WEBLOG("Fan Button: Long Press");
       transmitZephyr(powerCode);
       power->setVal(false);      
       resetLight=true;
@@ -206,6 +220,7 @@ void transmitZephyr(uint32_t code){
   char c[32];
   sprintf(c,"Transmitting code: %lx\n",code);
   LOG1(c);
+  WEBLOG("Transmitting code: 0x%05X",code);
   
   RF433.clear();
   
