@@ -1,6 +1,6 @@
 # ZephyrVentHood - A HomeSpan Project
  
-HomeKit control of a ceiling-mounted <a href="https://zephyronline.com/product/lux-island-range-hood/">Lux Island</a> kitchen vent hood fan by Zephyr.  Built using the [HomeSpan](https://github.com/HomeSpan/HomeSpan) HomeKit Library, ZephyrVentHood is designed to run on an ESP32 device as an Arduino sketch. 
+HomeKit control of a ceiling-mounted [Lux Island](https://docs.zephyronline.com/docs/specs/lux_spec.pdf) kitchen vent hood fan by Zephyr.  Built using the [HomeSpan](https://github.com/HomeSpan/HomeSpan) HomeKit Library, ZephyrVentHood is designed to run on an ESP32 device as an Arduino sketch. 
 
 Hardware used for this project:
 
@@ -13,11 +13,13 @@ Though the Lux Island Vent Fan is a rather esoteric appliance, the Arduino sketc
 
 ### The Zephyr Kitchen Vent Hood with LED Lights
 
-As part of a kitchen remodel we selected a <a href="https://zephyronline.com/product/lux-island-range-hood/">Lux Island</a> vent hood fan by Zephyr to install in the ceiling over a kitchen island cooktop.  The hood contains a very powerful 3-speed fan and sports LED lights to illuminate the cooking area below with 3 levels of brightness.  Since the entire unit is mounted directly in the ceiling, **there are no manual controls or buttons to turn it ON or OFF**.  Instead, Zephyr provides this stylistic RF remote control you're supposed to place on your countertop:
+As part of a kitchen remodel we selected a [Lux Island](https://docs.zephyronline.com/docs/specs/lux_spec.pdf) vent hood fan by Zephyr to install in the ceiling over a kitchen island cooktop.  The hood contains a very powerful 3-speed fan and sports LED lights to illuminate the cooking area below with 3 levels of brightness.  Since the entire unit is mounted directly in the ceiling, **there are no manual controls or buttons to turn it ON or OFF**.  Instead, Zephyr provides this stylistic RF remote control you're supposed to place on your countertop:
 
 ![Remote Control](images/zephyr-remote.png)
 
 As shown, it's a simple 4-button remote with buttons for *power*, the *fan*, the *light*, and a timer control.  Unfortunately, it uses a psuedo-touch sensitive mechanism that is so finicky that there is only a 5% chance that it registers when you press the button.  A replacement remote from the manufacturer performed even worse and it was nearly impossible to get the remote to detect when you pressed one of the buttons.  This project was thus designed to both replace the Zephyr remote with a more robust device, as well as to provide HomeKit control so that you can activate the vent fan and light using Siri (useful when your hands are busy cooking and a pan starts to smoke).
+
+❗ Note: the original Zephyr Lux Island has been discontinued and the newer "Connect" versions of Zephyr vent hoods use a different RF remote with a different protocol.  The code in this repository in only compatible with the remote for the older non-Connect versions of the Zephyr vent hoods.
 
 ### The RF Signals
 
