@@ -19,7 +19,7 @@ As part of a kitchen remodel we selected a [Lux Island](https://docs.zephyronlin
 
 As shown, it's a simple 4-button remote with buttons for *power*, the *fan*, the *light*, and a timer control.  Unfortunately, it uses a psuedo-touch sensitive mechanism that is so finicky that there is only a 5% chance that it registers when you press the button.  A replacement remote from the manufacturer performed even worse and it was nearly impossible to get the remote to detect when you pressed one of the buttons.  This project was thus designed to both replace the Zephyr remote with a more robust device, as well as to provide HomeKit control so that you can activate the vent fan and light using Siri (useful when your hands are busy cooking and a pan starts to smoke).
 
-❗ Note: the original Zephyr Lux Island has been discontinued and the newer "Connect" versions of Zephyr vent hoods use a different RF remote with a different protocol.  The code in this repository in only compatible with the remote for the older non-Connect versions of the Zephyr vent hoods.
+❗ Note: the original Zephyr Lux Island has been discontinued and the newer "Connect" versions of Zephyr vent hoods use a different RF remote with a different protocol.  The code in this repository is only compatible with the remote for the older non-Connect versions of the Zephyr vent hoods.
 
 ### The RF Signals
 
